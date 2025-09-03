@@ -4,6 +4,7 @@ module.exports = {
   name: 'autojoinrole',
   description: 'Set an auto role to assign when someone joins.',
   usage: '!autojoinrole @Role',
+  aliases: ["ajr","joinrole"],
   async execute(client, message, args) {
     if (!message.member.hasPermission('MANAGE_ROLES'))
       return message.channel.send('❌ You don’t have permission to set auto roles.');

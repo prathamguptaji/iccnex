@@ -3,7 +3,8 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'role-all',
   description: 'Adds a role to all members in the server.',
-  usage: '!role-all @RoleName',
+  usage: '!role-all @RoleName or !role-all RoleID',
+
   async execute(client, message, args) {
     if (!message.guild) return message.channel.send('❌ This command can only be used in a server.');
 
@@ -13,8 +14,9 @@ module.exports = {
     if (!message.guild.me.hasPermission('MANAGE_ROLES'))
       return message.channel.send('❌ I do not have permission to manage roles.');
 
-    const role = message.mentions.roles.first();
-    if (!role) return message.channel.send('❌ Please mention a valid role (e.g., `@RoleName`).');
+    // Try to get role from mention or ID
+    const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
+    if (!role) return message.channel.send('❌ Please mention a valid role or provide its ID.');
 
     if (role.position >= message.guild.me.roles.highest.position)
       return message.channel.send('❌ That role is higher or equal to my highest role, I cannot assign it.');

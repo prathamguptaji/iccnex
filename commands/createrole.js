@@ -1,5 +1,6 @@
 module.exports = {
     name: 'createrole',
+    aliases:["cr"],
     description: 'Creates a role with no permissions',
     async execute(client, message, args) {
         const roleName = args.join(' ');
